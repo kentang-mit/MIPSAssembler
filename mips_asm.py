@@ -295,7 +295,7 @@ class MIPS_Assembler:
             elif inst_type == 'addi':
                 rt = int(inst[1])
                 rs = int(inst[2])
-                radix = 10 if '0x' in inst[3] else 16
+                radix = 10 if '0x' not in inst[3] else 16
                 imm = int(inst[3], radix)                
                 parsed_binary.append(self.addi_(rt,rs,imm))
             elif inst_type == 'andi':
