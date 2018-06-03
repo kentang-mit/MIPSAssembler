@@ -73,23 +73,23 @@ class MIPS_Assembler:
         ans = '0'*(8-len(ans))+ans
         return ans
 
-    def srl_(self, rt, rd, sa):
+    def srl_(self, rd, rs, rt):
         op = '000000'
-        rs_ = '00000'
+        rs_ = get_bin(rs)
         rt_ = get_bin(rt)
         rd_ = get_bin(rd)
-        sa = get_bin(sa)
+        sa = '00000'
         func = '000010'
         ans = str(hex(int(op+rs_+rt_+rd_+sa+func,2)))[2:]
         ans = '0'*(8-len(ans))+ans
         return ans
     
-    def sra_(self, rt, rd, sa):
+    def sra_(self, rd, rs, rt):
         op = '000000'
-        rs_ = '00000'
+        rs_ = get_bin(rs)
         rt_ = get_bin(rt)
         rd_ = get_bin(rd)
-        sa = get_bin(sa)
+        sa = '00000'
         func = '000011'
         ans = str(hex(int(op+rs_+rt_+rd_+sa+func,2)))[2:]
         ans = '0'*(8-len(ans))+ans
@@ -281,14 +281,14 @@ class MIPS_Assembler:
                 parsed_binary.append(self.sll_(rt,rd,sa))
             elif inst_type == 'srl':
                 rd = int(inst[1])
-                rt = int(inst[2])
-                sa = int(inst[3])
-                parsed_binary.append(self.srl_(rt,rd,sa))
+                rs = int(inst[2])
+                rt = int(inst[3])
+                parsed_binary.append(self.srl_(rd,rs,rt))
             elif inst_type == 'sra':
                 rd = int(inst[1])
-                rt = int(inst[2])
-                sa = int(inst[3])
-                parsed_binary.append(self.sra_(rt,rd,sa))
+                rs = int(inst[2])
+                rt = int(inst[3])
+                parsed_binary.append(self.sra_(rd,rs,rt))
             elif inst_type == 'jr':
                 rs = int(inst[1])
                 parsed_binary.append(self.jr_(rs))
